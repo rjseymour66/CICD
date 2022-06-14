@@ -52,9 +52,9 @@ Build images with the `docker commit` command, or automate builds with a Dockerf
 With docker commit, you run a base image and install dependencies. Then, you exit the container, and run docker commit <digest> <image-name> to build a custom image. The following steps build an ubuntu image with git:
 
 1. $ docker run -it ubuntu:18.04 /bin/bash
-2. # apt-get update && apt-get install git -y
-3. # which git
-4. # exit
+2. \# apt-get update && apt-get install git -y
+3. \# which git
+4. \# exit
 5. $ docker commit <container-id> image name
 
 A Dockerfile consists of a series of instructions that build an image. Dockerfiles replace the `docker commit` command.
