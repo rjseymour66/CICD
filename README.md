@@ -57,6 +57,9 @@ Docker images package an application environment and uses the Docker engine, a r
 `docker rmi $(docker images -f "dangling=true" -q)`
 : Removes all images that do not have tags (such as :latest)
 
+`docker volume ls -qf dangling=true`
+: Remove all Docker volumes on the Docker host
+
 
 ### Components
 
@@ -144,3 +147,36 @@ When you run a container, Docker generates a name and assigns it to the containe
 `$ docker run -d --name <name> <image-name>`
 
 For many `docker ...` commands, you can use the container's name in place of the container ID. For example, `docker logs <container-name>`.
+
+## Jenkins
+
+### Setting agents
+
+You can set agents in one of the following ways:
+
+### Permanent agents
+
+If you use permanent agents, you must maintain multiple slave types (with labels) for different project types. So, if you have a project running on Java 11 and another that runs Go 1.18, you must maintain a Java 11 slave and Go 1.18 slave type.
+
+1. Go to Manage Jenkins > Manage nodes and clouds
+2. Click New Node.
+3. Assign a name
+4. Select Permanent Agent
+5. Click create.
+
+You have to complete a few fields. Below are descriptions of a few:
+- Remote root directory: The directory on the slave machine that the agent uses to run build jobs. 
+- Labels: Tags that you can add to identify builds
+
+
+### Permanent Docker agents
+
+Use Docker to create permanent, general-purpose slaves. Each slave is configured the same, and each build is associated with the Docker image that ran the build. Becuase each slave is the same, you don't need labels.
+
+### Jenkins swarm agents
+
+Jenkins Swarm lets you dynamically add slaves without configuring each of them in the Jenkins master. It requires the `Self-Organizing Swarm Plug-in Modules`, under `Manage Jenkins` > `Manage Plugins`.
+
+
+
+eval "$(oh-my-posh --init --shell bash --config ~/.poshthemes/agnosterplus.omp.json)"
